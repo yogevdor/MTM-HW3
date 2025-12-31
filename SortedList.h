@@ -32,9 +32,27 @@ namespace mtm {
          * if needed, use =defualt / =delete
          *
          * constructors and destructor:
-         * 1. SortedList() - creates an empty list.
+     */
+         SortedList();
+     /**
          * 2. copy constructor
          * 3. operator= - assignment operator
+     */
+         void SortedList<T>::insert(const T& value){
+         if(head == nullptr || head->value  > value){
+            head = new Node(value, head);
+            size++;
+            return;
+         }
+          Node* current = head;
+          while((current-> next-> value) < value && current->next != nullptr){
+           current = current->next;
+          }
+          current->next = new Node(value, current->next);
+          size++;
+         }
+          
+        /**
          * 4. ~SortedList() - destructor
          *
          * iterator:
