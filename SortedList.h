@@ -58,6 +58,15 @@ namespace mtm {
          * iterator:
          * 5. class ConstIterator;
          * 6. begin method
+     */
+     const T& operator*() const {
+          Node* current = head;
+          while(current->next != nullptr){
+           current = current->next;
+          }
+          return current;
+         }
+     /**
          * 7. end method
          *
          * functions:
