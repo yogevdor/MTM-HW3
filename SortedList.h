@@ -7,11 +7,25 @@ namespace mtm {
 
     template <typename T>
     class SortedList {
-    T value;
+      struct Node{
+        T value;
+        Node* next;
+        Node(const T& value, Node* next = nullptr) : value(value), next(next) {}
+      };
     int size;
-    SortedList* next;
+    Node* head;
 
     public:
+      SortedList(const SortedList<T> &other){
+        if (this == &other){
+          return this;
+        }
+        delete this;
+        SortedList<T> newList=other
+        while(SortedList<T>::next!==nullptr){
+
+        }
+      }
         /**
          *
          * the class should support the following public interface:
