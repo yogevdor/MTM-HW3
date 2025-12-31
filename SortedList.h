@@ -63,8 +63,26 @@ namespace mtm {
          * functions:
          * 8. insert - inserts a new element to the list
          * 9. remove - removes an element from the list
-         * 10. length - returns the number of elements in the list
+     */
+     int SortedList<T>::length(const T& value){
+         return size;
+     }
+
+      /**   * 10. length - returns the number of elements in the list
          * 11. filter - returns a new list with elements that satisfy a given condition
+     */
+     SortedList<T> SortedList<T>::apply(T (*operation)(const T&)) const{
+          SortedList<T> newList;
+          Node* current = head;
+          ;
+          while(current != nullptr){
+           T temp = operation(current->value);
+           newList.insert(temp);
+           current = current->next;
+          }
+          return newList;
+     }
+     /**
          * 12. apply - returns a new list with elements that were modified by an operation
          */
 
