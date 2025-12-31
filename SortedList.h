@@ -7,6 +7,10 @@ namespace mtm {
 
     template <typename T>
     class SortedList {
+    T value;
+    int size;
+    SortedList* next;
+
     public:
         /**
          *
