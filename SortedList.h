@@ -16,16 +16,44 @@ namespace mtm {
     Node* head;
 
     public:
-      SortedList(const SortedList<T> &other){
-        if (this == &other){
-          return this;
+        SortedList(const SortedList<T> &other) : head(nullptr), size(0) {
+            if(other.head==nullptr){
+                return;
+            }
+            try {
+                this->head = new Node(other.head->value);
+                this->size++;
+                Node* current = this->head;
+                Node* otherCurrent= other.head->next;
+                while(otherCurrent!=nullptr){
+                    current->next = new Node(otherCurrent->value);
+                    current = current->next;
+                    otherCurrent = otherCurrent->next;
+                    this->size++;
+                }
+            }
+            catch(...){
+                while(this->head!=nullptr){
+                    Node* temp = this->head;
+                    this->head = this->head->next;
+                    delete temp;
+                }
+                throw;
+            }
         }
-        delete this;
-        SortedList<T> newList=other
-        while(SortedList<T>::next!==nullptr){
 
+        SortedList<T>& operator=(const SortedList<T> &other) {
+            if (this == &other){
+                return *this;
+            }
+            SortedList<T> temp(other);
+            Node* old = this->head;
+            this->head = temp.head;
+            temp.head = old;
+            temp.size = this->size;
+            this->size = other.size;
+            return *this;
         }
-      }
         /**
          *
          * the class should support the following public interface:
