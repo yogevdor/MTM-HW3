@@ -133,7 +133,7 @@ namespace mtm
             {
                 if (func(current->value))
                 {
-                    filtered.insert(func(current->value));
+                    filtered.insert(current->value);
                 }
                 current = current->next;
             }
@@ -168,7 +168,6 @@ namespace mtm
         }
 
         /**   * 10. length - returns the number of elements in the list
-           * 11. filter - returns a new list with elements that satisfy a given condition
        */
         SortedList<T> mtm::SortedList<T>::apply(T (*operation)(const T&)) const
         {
