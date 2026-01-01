@@ -22,6 +22,48 @@ namespace mtm
         Node* head;
 
     public:
+        class ConstIterator
+        {
+            Node* current;
+            friend class SortedList;
+
+        public:
+            ConstIterator& operator++()
+            {
+                if (current == nullptr)
+                {
+                    throw std::out_of_range("Out of Range");
+                }
+                current = current->next;
+                return *this;
+            }
+
+            ConstIterator& operator*()
+            {
+                if (current == nullptr)
+                {
+                    throw std::out_of_range("Out of Range");
+                }
+                return current;
+            }
+
+            const T& operator*() const
+            {
+                if (current == nullptr)
+                {
+                    throw std::out_of_range("Out of Range");
+                }
+                return current->value;
+            }
+
+            bool operator!=(const ConstIterator& it) const
+            {
+                return current != it.current;
+            }
+        };
+
+        SortedList();
+
         SortedList(const SortedList<T>& other) : head(nullptr), size(0)
         {
             if (other.head == nullptr)
@@ -54,7 +96,7 @@ namespace mtm
             }
         }
 
-        SortedList<T>& operator=(const SortedList<T>& other)
+        SortedList& operator=(const SortedList& other)
         {
             if (this == &other)
             {
@@ -69,8 +111,6 @@ namespace mtm
             return *this;
         }
 
-        SortedList();
-
         ~SortedList()
         {
             while (this->head != nullptr)
@@ -79,6 +119,23 @@ namespace mtm
                 this->head = this->head->next;
                 delete temp;
             }
+        }
+
+        void insert(const T& value)
+        {
+            if (head == nullptr || head->value > value)
+            {
+                head = new Node(value, head);
+                size++;
+                return;
+            }
+            Node* current = head;
+            while ((current->next->value) < value && current->next != nullptr)
+            {
+                current = current->next;
+            }
+            current->next = new Node(value, current->next);
+            size++;
         }
 
         void remove(ConstIterator it)
@@ -105,21 +162,19 @@ namespace mtm
             }
         }
 
-        void mtm::SortedList<T>::insert(const T& value)
+        int length(const T& value)
         {
-            if (head == nullptr || head->value > value)
-            {
-                head = new Node(value, head);
-                size++;
-                return;
-            }
-            Node* current = head;
-            while ((current->next->value) < value && current->next != nullptr)
-            {
-                current = current->next;
-            }
-            current->next = new Node(value, current->next);
-            size++;
+            return size;
+        }
+
+        ConstIterator begin() const
+        {
+            return ConstIterator(head);
+        }
+
+        ConstIterator end() const
+        {
+            return ConstIterator(nullptr);
         }
 
         template <class Predicate>
@@ -138,32 +193,7 @@ namespace mtm
             return filtered;
         }
 
-        ConstIterator begin() const
-        {
-            return ConstIterator(head);
-        }
-
-        ConstIterator end() const
-        {
-            return ConstIterator(nullptr);
-        }
-
-        const T& operator*() const
-        {
-            Node* current = head;
-            while (current->next != nullptr)
-            {
-                current = current->next;
-            }
-            return current;
-        }
-
-        int mtm::SortedList<T>::length(const T& value)
-        {
-            return size;
-        }
-
-        SortedList<T> mtm::SortedList<T>::apply(T (*operation)(const T&)) const
+        SortedList apply(T (*operation)(const T&)) const
         {
             SortedList<T> newList;
             Node* current = head;;
@@ -175,11 +205,7 @@ namespace mtm
             }
             return newList;
         }
-    };
 
-    template <class T>
-    class SortedList<T>::ConstIterator
-    {
         /**
          * the class should support the following public interface:
          * if needed, use =defualt / =delete
