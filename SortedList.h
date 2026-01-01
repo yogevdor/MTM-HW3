@@ -24,45 +24,48 @@ namespace mtm
     public:
         class ConstIterator
         {
-            Node* current;
+            const Node* node;
             friend class SortedList;
 
-        public:
-            ConstIterator& operator++()
+            explicit ConstIterator(const Node* node) : node(node)
             {
-                if (current == nullptr)
-                {
-                    throw std::out_of_range("Out of Range");
-                }
-                current = current->next;
-                return *this;
             }
 
-            ConstIterator& operator*()
+        public:
+            ConstIterator(const ConstIterator& other) = default;
+
+            ConstIterator& operator=(const ConstIterator& other) = default;
+
+            ~ConstIterator() = default;
+
+            ConstIterator& operator++()
             {
-                if (current == nullptr)
+                if (node == nullptr)
                 {
                     throw std::out_of_range("Out of Range");
                 }
-                return current;
+                node = node->next;
+                return *this;
             }
 
             const T& operator*() const
             {
-                if (current == nullptr)
+                if (node == nullptr)
                 {
                     throw std::out_of_range("Out of Range");
                 }
-                return current->value;
+                return node->value;
             }
 
             bool operator!=(const ConstIterator& it) const
             {
-                return current != it.current;
+                return node != it.node;
             }
         };
 
-        SortedList();
+        SortedList() : size(0), head(nullptr)
+        {
+        }
 
         SortedList(const SortedList<T>& other) : head(nullptr), size(0)
         {
@@ -162,7 +165,7 @@ namespace mtm
             }
         }
 
-        int length(const T& value)
+        int length() const
         {
             return size;
         }
@@ -205,23 +208,6 @@ namespace mtm
             }
             return newList;
         }
-
-        /**
-         * the class should support the following public interface:
-         * if needed, use =defualt / =delete
-         *
-         * constructors and destructor:
-         * 1. a ctor(or ctors) your implementation needs
-         * 2. copy constructor
-         * 3. operator= - assignment operator
-         * 4. ~ConstIterator() - destructor
-         *
-         * operators:
-         * 5. operator* - returns the element the iterator points to
-         * 6. operator++ - advances the iterator to the next element
-         * 7. operator!= - returns true if the iterator points to a different element
-         *
-         */
     };
 }
 
