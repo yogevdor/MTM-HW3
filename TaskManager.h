@@ -1,18 +1,21 @@
 
 #pragma once
-
+#include "Person.h"
 #include "Task.h"
 
 /**
  * @brief Class managing tasks assigned to multiple persons.
  */
-class TaskManager {
+class TaskManager
+{
 private:
     /**
      * @brief Maximum number of persons the TaskManager can handle.
      */
     static const int MAX_PERSONS = 10;
-
+    Person employees[MAX_PERSONS];
+    int nextId;
+    int size;
     // Note - Additional private fields and methods can be added if needed.
 
 public:
@@ -26,12 +29,12 @@ public:
     /**
      * @brief Deleted copy constructor to prevent copying of TaskManager objects.
      */
-    TaskManager(const TaskManager &other) = delete;
+    TaskManager(const TaskManager& other) = delete;
 
     /**
      * @brief Deleted copy assignment operator to prevent assignment of TaskManager objects.
      */
-    TaskManager &operator=(const TaskManager &other) = delete;
+    TaskManager& operator=(const TaskManager& other) = delete;
 
     /**
      * @brief Assigns a task to a person.
@@ -39,14 +42,14 @@ public:
      * @param personName The name of the person to whom the task will be assigned.
      * @param task The task to be assigned.
      */
-    void assignTask(const string &personName, const Task &task);
+    void assignTask(const string& personName, const Task& task);
 
     /**
      * @brief Completes the highest priority task assigned to a person.
      *
      * @param personName The name of the person who will complete the task.
      */
-    void completeTask(const string &personName);
+    void completeTask(const string& personName);
 
     /**
      * @brief Bumps the priority of all tasks of a specific type.

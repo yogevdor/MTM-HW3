@@ -8,7 +8,7 @@ namespace mtm
     template <typename T>
     class SortedList
     {
-        struct Node
+        struct  Node
         {
             T value;
             Node* next;
