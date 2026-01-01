@@ -105,8 +105,6 @@ namespace mtm
             }
         }
 
-        /**
-        */
         void mtm::SortedList<T>::insert(const T& value)
         {
             if (head == nullptr || head->value > value)
@@ -125,7 +123,7 @@ namespace mtm
         }
 
         template <class Predicate>
-        SortedList filter(Predicate func)
+        SortedList filter(Predicate func) const
         {
             SortedList filtered;
             Node* current = this->head;
@@ -140,12 +138,16 @@ namespace mtm
             return filtered;
         }
 
-        /**
-         *
-         * iterator:
-         * 5. class ConstIterator;
-         * 6. begin method
-     */
+        ConstIterator begin() const
+        {
+            return ConstIterator(head);
+        }
+
+        ConstIterator end() const
+        {
+            return ConstIterator(nullptr);
+        }
+
         const T& operator*() const
         {
             Node* current = head;
@@ -156,19 +158,11 @@ namespace mtm
             return current;
         }
 
-        /**
-            * 7. end method
-            *
-            * functions:
-            * 8. insert - inserts a new element to the list
-        */
         int mtm::SortedList<T>::length(const T& value)
         {
             return size;
         }
 
-        /**   * 10. length - returns the number of elements in the list
-       */
         SortedList<T> mtm::SortedList<T>::apply(T (*operation)(const T&)) const
         {
             SortedList<T> newList;
@@ -181,10 +175,6 @@ namespace mtm
             }
             return newList;
         }
-
-        /**
-            * 12. apply - returns a new list with elements that were modified by an operation
-            */
     };
 
     template <class T>
