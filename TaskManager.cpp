@@ -3,7 +3,7 @@
 #include "SortedList.h"
 #include "Task.h"
 
-TaskManager::TaskManager() : nextId(0), size(0)
+TaskManager::TaskManager() : nextId(0), size(0) {}
 
 void TaskManager::assignTask(const string& personName, const Task& task){
   Task newTask = task;

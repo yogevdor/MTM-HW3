@@ -67,7 +67,7 @@ namespace mtm
         {
         }
 
-        SortedList(const SortedList<T>& other) : head(nullptr), size(0)
+        SortedList(const SortedList<T>& other) : size(0), head(nullptr)
         {
             if (other.head == nullptr)
             {
