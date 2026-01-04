@@ -8,7 +8,7 @@ namespace mtm
     template <typename T>
     class SortedList
     {
-        struct  Node
+        struct Node
         {
             T value;
             Node* next;
@@ -47,8 +47,10 @@ namespace mtm
                 node = node->next;
                 return *this;
             }
-            bool operator !=(const ConstIterator& other) const{
-              return node != other.node;
+
+            bool operator !=(const ConstIterator& other) const
+            {
+                return node != other.node;
             }
 
             const T& operator*() const
@@ -58,11 +60,6 @@ namespace mtm
                     throw std::out_of_range("Out of Range");
                 }
                 return node->value;
-            }
-
-            bool operator!=(const ConstIterator& it) const
-            {
-                return node != it.node;
             }
         };
 
@@ -199,10 +196,11 @@ namespace mtm
             return filtered;
         }
 
-        SortedList apply(T (*operation)(const T&)) const
+        template <class Func>
+        SortedList apply(Func operation) const
         {
             SortedList<T> newList;
-            Node* current = head;;
+            Node* current = head;
             while (current != nullptr)
             {
                 T temp = operation(current->value);
