@@ -126,14 +126,14 @@ namespace mtm
 
         void insert(const T& value)
         {
-            if (head == nullptr || head->value > value)
+            if (head == nullptr || value > head->value)
             {
                 head = new Node(value, head);
                 size++;
                 return;
             }
             Node* current = head;
-            while ((current->next->value) < value && current->next != nullptr)
+            while (current->next != nullptr && !(value > current->next->value))
             {
                 current = current->next;
             }
