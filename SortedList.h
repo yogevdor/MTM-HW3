@@ -47,6 +47,9 @@ namespace mtm
                 node = node->next;
                 return *this;
             }
+            bool operator !=(ConstIterator& other) {
+              return current != other.current;
+            }
 
             const T& operator*() const
             {
