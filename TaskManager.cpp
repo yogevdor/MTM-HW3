@@ -51,7 +51,6 @@ void TaskManager::bumpPriorityByType(TaskType type, int priority){
 void TaskManager::printAllEmployees() const{
   for(int i = 0; i < size; i++){
     std::cout << employees[i] << std::endl;
-    std::cout << std::endl;
   }
 }
 void TaskManager::printAllTasks() const{
@@ -72,7 +71,6 @@ void TaskManager::printTasksByType(TaskType type) const{
     for(const Task& t : tasks){
       if(t.getType() == type){
         std::cout << t << std::endl;
-        std::cout << std::endl;
       }
     }
   }
