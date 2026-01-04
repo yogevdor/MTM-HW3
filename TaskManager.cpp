@@ -3,6 +3,8 @@
 #include "SortedList.h"
 #include "Task.h"
 
+TaskManager::TaskManager() : nextId(0), size(0)
+
 void TaskManager::assignTask(const string& personName, const Task& task){
   Task newTask = task;
   newTask.setId(nextId++);
@@ -20,6 +22,14 @@ void TaskManager::assignTask(const string& personName, const Task& task){
     size++;
   }
 }
+void TaskManager::completeTask(const string& personName){
+  for(int i = 0; i < size; i++){
+    if(employees[i].getName() == personName){
+      employees[i].completeTask();
+    }
+  }
+}
+
 
 void TaskManager::bumpPriorityByType(TaskType type, int priority){
   if(priority <=0){
@@ -38,7 +48,12 @@ void TaskManager::bumpPriorityByType(TaskType type, int priority){
     employees[i].setTasks(updatedTasks);
   }
 }
-
+void TaskManager::printAllEmployees() const{
+  for(int i = 0; i < size; i++){
+    std::cout << employees[i] << std::endl;
+    std::cout << std::endl;
+  }
+}
 void TaskManager::printAllTasks() const{
   SortedList<Task> allTasks;
   for(int i = 0; i < size; i++){
@@ -49,5 +64,16 @@ void TaskManager::printAllTasks() const{
   }
   for(const Task& t : allTasks){
     std::cout << t << std::endl;
+  }
+}
+void TaskManager::printTasksByType(TaskType type) const{
+  for (int i = 0; i < size; ++i) {
+    const SortedList<Task>& tasks = employees[i].getTasks();
+    for(const Task& t : tasks){
+      if(t.getType() == type){
+        std::cout << t << std::endl;
+        std::cout << std::endl;
+      }
+    }
   }
 }
